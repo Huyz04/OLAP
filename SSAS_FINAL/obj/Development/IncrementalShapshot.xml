@@ -1,0 +1,82 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>SSAS_FINAL</Database>
+    <Server>DESKTOP-3790MCE</Server>
+    <ConnectionString>Data Source=DESKTOP-3790MCE;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>Default</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>H51RChMJeqadrOnhI3pf4DSf2Xc=5/22/2024 6:37:26 AM5/22/2024 6:37:26 AM</TimeStamp>
+        <ID>
+          <String>WARE CRIME</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>zZyCgfkbe/cRxBVRpQQWwDJObHo=5/22/2024 6:37:42 AM5/22/2024 6:37:42 AM</TimeStamp>
+        <ID>
+          <String>WARE CRIME</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>NxubD8/xGgNLSyIW8F923Tse1TU=5/22/2024 7:03:56 AM5/22/2024 6:37:53 AM</TimeStamp>
+        <ID>
+          <String>Dim Datetime</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>KLv+mTSWjZrlKsw4pVdUcpuS2rA=5/22/2024 6:39:44 AM5/22/2024 6:37:53 AM</TimeStamp>
+        <ID>
+          <String>Dim Document</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>wr4XLDZdIRlEe6TU/GgZYeTy8hk=5/22/2024 7:07:17 AM5/22/2024 6:37:53 AM</TimeStamp>
+        <ID>
+          <String>Dim Location</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>uMzgkbJhqcUL9zW9AAmcb3SZ24s=5/22/2024 6:43:16 AM5/22/2024 6:37:53 AM</TimeStamp>
+        <ID>
+          <String>Dim Crime</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>2Ij1alrGIqJsnudgur9SUvVwBbY=5/22/2024 9:51:49 AM5/22/2024 6:37:53 AMBj0GCfsUiDlO7Hl2wJJqxQ3hYwI=5/22/2024 6:37:53 AM5/22/2024 6:37:53 AM</TimeStamp>
+        <ID>
+          <String>WARE CRIME</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>l10lNJiwz+MZ8RBPFiHY2wyoY0A=5/22/2024 6:24:42 AM5/22/2024 6:24:42 AM</TimeStamp>
+      <ID>
+        <String>SSAS_FINAL</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2024-05-22T02:51:51.573333Z</LastDeployed>
+</DeploymentSnapshot>

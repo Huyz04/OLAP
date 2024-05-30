@@ -1,0 +1,283 @@
+﻿
+-- Cho biết số lượng vụ phạm tội theo từng năm từ 2014 đến 2023.
+SELECT 
+  [Measures].[Fact Crime Count] ON COLUMNS,
+  [Dim Datetime].[Year].MEMBERS ON ROWS
+FROM [WARE CRIME]
+
+-- Cho biết số vụ phạm tội liên quan đến bạo lực gia đình trong 5 năm gần đây.
+
+-- Cho biết tỉ lệ phạm tội bị bắt trong năm 2022.
+
+-- Cho biết quận(District) nào là có số tội phạm cao nhất trong .
+
+-- Liệt kê 3 nơi(Beat) mà xảy ra phạm tội cao nhất từ năm 2020 - 2023.
+WITH 
+MEMBER [Measures].[CrimeCount2020To2023] AS
+    SUM(
+        {[Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]},
+        [Measures].[Fact Crime Count]
+    )
+SELECT 
+    NON EMPTY 
+    { [Measures].[CrimeCount2020To2023] } ON COLUMNS,
+    TOPCOUNT(
+        EXCEPT(
+            [Dim Document].[Beat].Members, 
+            {[Dim Document].[Beat].[All]}
+        ),
+        3,
+        [Measures].[CrimeCount2020To2023]
+    ) ON ROWS
+FROM [WARE CRIME]
+WHERE 
+    (
+        {[Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]}
+    )
+
+
+-- Cho biết số vụ án có liên quan đến bạo lực gia đình.
+
+-- Cho biết số vụ án diễn ra ở trường học chưa bị bắt giữ.
+
+-- Cho biết số vụ án diễn ra từ 12am - 3am
+-- Liệt kê 3 nơi (Beat) có tỉ lệ bắt giữ tội phạm cao nhất
+-- Thống kê 3 mô tả vị trí xảy ra phạm tội nhiều nhất, kèm theo đó là số bị bắt giữ.
+-- Cho biết 3 loại phạm tội nhiều nhất trong năm 2019, thời gian diễn ra phạm tội phổ biến của từng loại phạm tội này(theo giờ)
+-- Cho biết số tội phạm đã bị bắt giữ trong vòng 5 năm trở lại đây, loại phạm tội nào là nhiều nhất.
+
+
+SELECT 
+  [Measures].[Fact Crime Count] ON COLUMNS,
+  [Dim Datetime].[Year].MEMBERS ON ROWS
+FROM [WARE CRIME]
+
+
+ORDER BY
+
+SELECT 
+  [Measures].[Fact Crime Count] ON COLUMNS,
+  [Dim Datetime].[Year].[Year].[2015] ON ROWS
+FROM [WARE CRIME]
+
+
+WITH 
+MEMBER [Measures].[CrimeCount2020To2023] AS
+    SUM(
+        {[Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]},
+        [Measures].[Fact Crime Count]
+    )
+SELECT 
+    NON EMPTY 
+    { [Measures].[CrimeCount2020To2023] } ON COLUMNS,
+    TOPCOUNT(
+        [Dim Document].[Beat].Members,
+        3,
+        [Measures].[CrimeCount2020To2023]
+    ) ON ROWS
+FROM [WARE CRIME]
+WHERE 
+    (
+        [Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]
+    )
+
+
+
+WITH 
+SET [Top5DistrictsByQuarter] AS
+    TOPCOUNT(
+        NONEMPTY([Dim Location].[District].[District].MEMBERS, [Measures].[Fact Crime Count]),
+        5,
+        [Measures].[Fact Crime Count]
+    )
+
+SELECT
+    {[Measures].[Fact Crime Count]} ON COLUMNS,
+    NONEMPTY(
+        CROSSJOIN(
+            [Dim Datetime].[Quarter].[Quarter].MEMBERS,
+            [Top5DistrictsByQuarter]
+        )
+    ) ON ROWS
+FROM [WARE CRIME]
+WHERE ([Dim Datetime].[Year].&[2023])
+
+
+WITH 
+SET [Top5DistrictsByQuarter] AS
+    TOPCOUNT(
+        NONEMPTY([Dim Location].[District].[District].MEMBERS, [Measures].[Fact Crime Count]),
+        5,
+        [Measures].[Fact Crime Count]
+    )
+    
+SELECT
+    {[Measures].[Fact Crime Count]} ON COLUMNS,
+    NONEMPTY(
+        CROSSJOIN(
+            [Dim Datetime].[Quarter].[Quarter].MEMBERS,
+            [Top5DistrictsByQuarter]
+        )
+    ) ON ROWS
+FROM [WARE CRIME]
+WHERE ([Dim Datetime].[Year].&[2023])
+
+
+
+
+
+
+
+-- Liệt kê 3 nơi(Beat) mà xảy ra phạm tội cao nhất từ năm 2020 - 2023.
+WITH 
+MEMBER [Measures].[CrimeCount2020To2023] AS
+    SUM(
+        {[Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]},
+        [Measures].[Fact Crime Count]
+    )
+SELECT 
+    NON EMPTY 
+    { [Measures].[CrimeCount2020To2023] } ON COLUMNS,
+    TOPCOUNT(
+        EXCEPT(
+            [Dim Document].[Beat].Members, 
+            {[Dim Document].[Beat].[All]}
+        ),
+        3,
+        [Measures].[CrimeCount2020To2023]
+    ) ON ROWS
+FROM [WARE CRIME]
+WHERE 
+    (
+        {[Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]}
+    )
+
+
+	SELECT 
+    {[Measures].[Fact Crime Count]} ON COLUMNS,
+    NON EMPTY [Fact Crime Case].[Domestic].[Domestic].MEMBERS ON ROWS
+FROM [WARE CRIME]
+WHERE ([Dim Datetime].[Year].&[2023])	 
+
+
+//Thống kê top 5 Ward có số vụ tội phạm ít nhất trong District 4
+Select [Measures].[Fact Crime Count] on 0,
+BottomCount(
+[DIM Location].[Ward].Children,5,[Fact Crime Count] ) on 1
+from [WARE CRIME]
+where [DIM LOCATION].[District].&[4]
+
+-- Liệt kê 5 huyện có tổng số vụ án nhiều nhất theo từng quý
+WITH 
+SET [Top5DistrictsByQuarter] AS
+    TOPCOUNT(
+        NONEMPTY([Dim Location].[District].[District].MEMBERS, [Measures].[Fact Crime Count]),
+        5,
+        [Measures].[Fact Crime Count]
+    )
+SELECT
+    {[Measures].[Fact Crime Count]} ON COLUMNS,
+    NONEMPTY(
+        CROSSJOIN(
+            [Dim Datetime].[Year].[Year].MEMBERS,
+            [Dim Datetime].[Quarter].[Quarter].MEMBERS,
+            [Top5DistrictsByQuarter]
+        )
+    ) ON ROWS
+FROM [WARE CRIME]
+
+Loại tội phạm nào bị bắt giam nhiều nhất theo từng năm, thống kê từ 2020 - 2023
+
+WITH 
+MEMBER [Measures].[Arrest Count] AS
+    ([Measures].[Fact Crime Count], [Fact Crime].[Arrest].&[1])
+SELECT 
+    {[Measures].[Arrest Count]} ON COLUMNS,
+    NON EMPTY 
+    {
+        CROSSJOIN(
+            [Dim Datetime].[Year].&[2020]:[Dim Datetime].[Year].&[2023],
+            [Dim Crime].[Primary Type].[Primary Type].MEMBERS
+        )
+    } ON ROWS
+FROM [WARE CRIME]
+
+
+//Câu cô yêu cầu 
+WITH SET [Top 1 Primary Typee]
+ AS
+ {TOPCOUNT([DIM CRIME].[Primary Typee].children,1,[Measures].[Arrest Count])
+ }
+  SELECT NON EMPTY { [Measures].[Arrest] } ON COLUMNS, 
+		NON EMPTY { ([Dim Datetime].[Year].[Year].ALLMEMBERS * [DIM CRIME].[Primary Type].[Primary Type].ALLMEMBERS ) } ON ROWS 
+		FROM ( SELECT ( [Top 1 Primary Typee] ) ON COLUMNS FROM ( SELECT ( [Dim Datetime].Year].&[2020] : [Dim Datetime].[Year].&[2023] ) ON COLUMNS 
+  FROM [WARE CRIME]))
+
+
+
+  WITH
+  SET [Top 1 Primary Type By Year] AS
+    TOPCOUNT(
+      [DIM CRIME].[Primary Type].MEMBERS,
+      1,
+      [Measures].[SUM ARREST]
+    )
+SELECT
+  NON EMPTY { [Measures].[SUM ARREST] } ON COLUMNS,
+  NON EMPTY { ([Dim Datetime].[Year].[Year].ALLMEMBERS * [DIM CRIME].[Primary Type].[Primary Type]) } ON ROWS
+FROM
+(
+  SELECT
+    ( [Top 1 Primary Type By Year] ) ON COLUMNS
+  FROM
+  (
+    SELECT
+      ( [Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023] ) ON COLUMNS
+    FROM
+      [WARE CRIME]
+  )
+)
+
+SELECT
+  NON EMPTY { [Measures].[SUM ARREST] } ON COLUMNS,
+  NON EMPTY { ([Dim Datetime].[Year].[Year].ALLMEMBERS * 
+              TOPCOUNT([DIM CRIME].[Primary Type].MEMBERS, 1, [Measures].[SUM ARREST])) } ON ROWS
+FROM
+  [WARE CRIME]
+WHERE
+  [Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]
+
+  WITH
+  SET [Top 1 Primary Type By Year] AS
+    TOPCOUNT(
+      [DIM CRIME].[Primary Type].MEMBERS,
+      1,
+      [Measures].[SUM ARREST]
+    )
+SELECT
+  NON EMPTY { [Measures].[SUM ARREST] } ON COLUMNS,
+  NON EMPTY { [DIM CRIME].[Primary Type].[Primary Type] } ON ROWS
+FROM
+  [WARE CRIME]
+WHERE
+  [Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]
+
+
+  WITH
+  SET [Top 1 Primary Type By Year] AS
+    TOPCOUNT(
+      [DIM CRIME].[Primary Type].MEMBERS,
+      1,
+      [Measures].[SUM ARREST]
+    )
+SELECT
+  NON EMPTY { [Dim Datetime].[Year].MEMBERS, [Measures].[SUM ARREST] } ON COLUMNS,
+  NON EMPTY { [Top 1 Primary Type By Year] } ON ROWS
+FROM
+  [WARE CRIME]
+WHERE
+  [Dim Datetime].[Year].&[2020] : [Dim Datetime].[Year].&[2023]
+
+
+
+  SELECT NON EMPTY { [Measures].[ArrestCount] } ON COLUMNS, 		NON EMPTY { ([DIM DATE].[CC Year].[CC Year].ALLMEMBERS * [DIM CRIME].[Primary Type].[Primary Type].ALLMEMBERS ) } ON ROWS 		FROM ( SELECT ( (TOPCOUNT(	[DIM CRIME].[Primary Type].children,	1,	[Measures].[ArrestCount]))) ON COLUMNS FROM ( SELECT ( [DIM DATE].[CC Year].&[2020] : [DIM DATE].[CC Year].&[2023] ) ON COLUMNS   FROM [DW CHICAGO CRIME]))

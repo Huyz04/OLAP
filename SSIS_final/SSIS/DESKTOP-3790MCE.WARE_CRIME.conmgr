@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DESKTOP-3790MCE.WARE_CRIME"
+  DTS:DTSID="{5A1E455D-F245-493D-8F88-6CE941B0A9FF}"
+  DTS:CreationName="ADO">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=DESKTOP-3790MCE;Initial Catalog=WARE_CRIME;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-SSIS-{5A1E455D-F245-493D-8F88-6CE941B0A9FF}DESKTOP-3790MCE.WARE_CRIME;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
